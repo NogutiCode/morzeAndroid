@@ -154,7 +154,7 @@ class MainActivity : AppCompatActivity() {
         vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE))
     }
 
-    private fun startWorking() {
+    private fun longDelayStartWorking() {
         if (switch4.isChecked) {
             showLight()
         }
@@ -162,6 +162,17 @@ class MainActivity : AppCompatActivity() {
             vibrate(skorostPalki.toLong())
         }
         Thread.sleep(skorostPalki.toLong())
+        offLight()
+        Thread.sleep(delay.toLong())
+    }
+    private fun smallDelayStartWorking() {
+        if (switch4.isChecked) {
+            showLight()
+        }
+        if (switch1.isChecked) {
+            vibrate(skorostTochki.toLong())
+        }
+        Thread.sleep(skorostTochki.toLong())
         offLight()
         Thread.sleep(delay.toLong())
     }
@@ -193,8 +204,12 @@ class MainActivity : AppCompatActivity() {
         while (z < arraySize) {
             try {
                 when (vivod[z]) {
-                    "−", "·" -> {
-                        startWorking()
+                    "−" -> {
+                        longDelayStartWorking()
+                            z++
+                        }
+                    "·" -> {
+                        smallDelayStartWorking()
                         z++
                     }
                 }
